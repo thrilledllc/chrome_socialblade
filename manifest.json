@@ -1,0 +1,31 @@
+{
+  "name": "Thrilled Socialblade Youtube Viewer",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "View YouTube channel stats while browsing YouTube",
+  "icons": {
+    "128": "img/icon128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "img/icon19.png",
+      "38": "img/icon38.png"
+    },
+    "default_title": "Thrilled",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "persistent": true,
+    "scripts": ["js/jquery.js", "js/cookie.js", "js/background.js"]
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "optional_permissions": ["management"],
+  "permissions": [
+    "https://www.youtube.com/",
+    "http://www.youtube.com/",
+    "https://www.youtube.com/*",
+    "http://www.youtube.com/*",
+    "cookies",
+    "notifications"
+  ]
+}
