@@ -1,4 +1,4 @@
-/* global $:true, chrome:true, pl:true */
+/* global $:true, chrome:true */
 'use strict';
 
 var background = chrome.runtime.connect(),
@@ -28,9 +28,27 @@ chrome.runtime.onConnect.addListener(function (port) {
 });
 
 
+function getStatsFor(handle) {
+  $('<iframe>').attr('src', 'http://widget.socialblade.com/widget.php?u=' + handle)
+    .appendTo('body');
+}
+
+function checkUrl(url) {
+  var m = url.match(/youtube\.com\/user\/([^\/]+).*/);
+  if (m && m[1]) {
+    getStatsFor(m[1]);
+  }
+}
+
+
 
 $(function () { // wrap this in a document.ready so we know we can touch the DOM
 
   sendCommand({ name: 'initialize' });
+
+
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
+    checkUrl(tabs && tabs.length && tabs[0] && tabs[0].url);
+  });
 
 });
